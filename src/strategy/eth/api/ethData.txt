@@ -1,0 +1,1 @@
+{"status":"1","message":"OK","result":{"ethbtc":"0.06785","ethbtc_timestamp":"1666384452","ethusd":"1302.85","ethusd_timestamp":"1666384452"}}

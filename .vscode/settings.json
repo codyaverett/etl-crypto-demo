@@ -1,0 +1,13 @@
+{
+    "workbench.editor.limit.excludeDirty": true,
+    "files.exclude": {
+        "**/*.pyc": {
+            "when": "$(basename).py"
+        },
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/**.lock": true,
+    },
+    "python.linting.enabled": false,
+    "python.analysis.typeCheckingMode": "off"
+}

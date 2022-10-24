@@ -26,7 +26,7 @@ DB_CONTAINER_NAME="${POSTGRES_DB}_db"
 DB_ADMIN_CONTAINER_NAME="${POSTGRES_DB}_pgadmin"
 
 # Pull latest postgres and pgadmin images
-docker pull postgres
+docker pull timescale/timescaledb-ha:pg14-latest
 docker pull dpage/pgadmin4
 
 # Stop and remove containers if they exist
@@ -47,7 +47,7 @@ docker run -d \
 -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
 -v $LOCAL_DATA_DIR:/var/lib/postgresql/data \
 -p $POSTGRES_PORT:$POSTGRES_PORT \
-postgres
+timescale/timescaledb-ha:pg14-latest
 
 # Run pgadmin container
 # with a local port for access
