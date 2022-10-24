@@ -131,3 +131,7 @@ dmypy.json
 # database
 db.sqlite3
 .crypto_db
+
+# other
+logs/
+tmp/
