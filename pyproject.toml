@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "etl_crypto_demo"
+description = ""
+version = "0.1.0"
+license = "MIT"
+authors = ["Cody Averett <codyaverett@gmail.com>"]
+readme = "README.md"
+packages = [{include = "etl_crypto_demo"}]
+homepage = "https://github.com/codyaverett/etl-crypto-demo"
+repository = "https://github.com/codyaverett/etl-crypto-demo"
+keywords = ["etl", "demo"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ansible = "6.5.0"
+ansible-runner = "2.2.1"
+
+[tool.poetry-workspace-plugin]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
