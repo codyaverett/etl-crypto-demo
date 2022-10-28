@@ -13,5 +13,6 @@ docker run -d \
     --name $CONTAINER_NAME \
     -v $DIR/../dags:/home/airflow/dags \
     -v $DIR/../logs:/home/airflow/logs \
+    -v $DIR/../plugins:/home/airflow/plugins \
     -p 8080:8080 \
     airflow-dev
