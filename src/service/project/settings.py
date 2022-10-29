@@ -11,10 +11,22 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from project.utils.envars import load_required_envars
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load Environment Variables
+# These MUST be defined for the application to start
+required_env = load_required_envars(
+    required_envars=[
+        "POSTGRES_USER",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_DB",
+        "POSTGRES_HOST",
+        "POSTGRES_PORT",
+    ]
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -25,8 +37,9 @@ SECRET_KEY = 'django-insecure-==bsq$ig37p)4%lbx3coxg-==0=ak5l(n&19a)2)*tj2#g&_dx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "*",
+]
 
 # Application definition
 
@@ -37,9 +50,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'rest_framework',
+    'debug_toolbar',
+    'api'
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,12 +90,19 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
+    "default": {
+        "ENGINE": "timescale.db.backends.postgresql",
+        "NAME": required_env["POSTGRES_DB"],
+        "USER": required_env["POSTGRES_USER"],
+        "PASSWORD": required_env["POSTGRES_PASSWORD"],
+        "HOST": required_env["POSTGRES_HOST"],
+        "PORT": required_env["POSTGRES_PORT"],
+    },
 }
 
 
