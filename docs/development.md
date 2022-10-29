@@ -1,32 +1,15 @@
 # Development
 
+
+
 ## Dependencies
 
-- pydev
-- python3 (dnf install python)
-- poetry
-- pipenv
-- docker
+- [python >= 3.10](https://www.python.org/downloads/)
+    - You may consider managing your python versions with [pyenv](https://github.com/pyenv/pyenv)
+- [pipenv](https://pipenv-fork.readthedocs.io/en/latest/install.html)
+- [docker](https://docs.docker.com/get-docker/)
+- [docker-compose](https://docs.docker.com/compose/install/)
 
-> NOTE: I'm using fedora linux for development of this project.
+## Setup
 
-## Install pyenv
-
-```shell
-curl https://pyenv.run | bash
-```
-
-## Setup build environment for your system
-https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-
-## Add this to your ~/.bashrc
-```shell
-export PATH="~/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-```
-
-# Install additional dependencies
-```shell
-sudo dnf install docker docker-compose
-```
+From project root run `pipenv install --dev`
