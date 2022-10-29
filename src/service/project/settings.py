@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'debug_toolbar',
-    'api'
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +87,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+REST_FRAMEWORK = {
+    "COERCE_DECIMAL_TO_STRING": False,
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
