@@ -1,15 +1,12 @@
 # Development
 
-
-
 ## Dependencies
 
 - pydev
 - python3 (dnf install python)
 - poetry
 - pipenv
-- podman
-- buildah
+- docker
 
 > NOTE: I'm using fedora linux for development of this project.
 
@@ -31,5 +28,5 @@ eval "$(pyenv virtualenv-init -)"
 
 # Install additional dependencies
 ```shell
-sudo dnf install podman buildah
+sudo dnf install docker docker-compose
 ```
