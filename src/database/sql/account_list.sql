@@ -1,4 +1,12 @@
-INSERT INTO public.accounts(
+CREATE SCHEMA io
+    AUTHORIZATION admin;
+
+DROP TABLE IF EXISTS io.accounts;
+
+-- CREATE TABLE io.accounts (
+-- );
+
+INSERT INTO io.accounts(
 	balance, account)
 	VALUES 
         (0, '0x3caca7b48d0573d793d3b0279b5f0029180e83b6'),
