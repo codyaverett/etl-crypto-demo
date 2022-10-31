@@ -1,11 +1,10 @@
 from django.urls import path, include
 from rest_framework import routers
-from api.views import stats
+from account.views.accountViewSet import AccountViewSet
 
 router = routers.DefaultRouter()
-router.register(r"price", stats.PriceViewSet)
+router.register(r"account", AccountViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

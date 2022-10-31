@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 # from rest_framework import permissions
 
-from api.models.stats import Price
-from api.serializers.stats import PriceSerializer
+from core.models.stats import Price
+from core.serializers.stats import PriceSerializer
 
 class PriceViewSet(viewsets.ModelViewSet):
     """

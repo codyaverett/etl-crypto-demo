@@ -1,7 +1,7 @@
 from django.db import models
 from timescale.db.models.models import TimescaleModel, TimescaleDateTimeField
-
 from .trading_pair import TradingPair
+
 
 class Price(TimescaleModel):
     id = models.AutoField(primary_key=True)

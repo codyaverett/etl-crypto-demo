@@ -1,6 +1,7 @@
 from django.db import models
 from .network import Network
 
+
 class Asset(models.Model):
     id = models.AutoField(primary_key=True, 
                           auto_created=True)
@@ -8,7 +9,7 @@ class Asset(models.Model):
                               null=False)
     name = models.CharField(max_length=20, 
                             null=False)
-    network = models.ManyToManyField(Network,
+    networks = models.ManyToManyField(Network,
                     verbose_name='supported networks')
     
     def __str__(self):

@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
+import debug_toolbar
 from pathlib import Path
 from project.utils.envars import load_required_envars
 
@@ -37,8 +39,14 @@ SECRET_KEY = 'django-insecure-==bsq$ig37p)4%lbx3coxg-==0=ak5l(n&19a)2)*tj2#g&_dx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 ALLOWED_HOSTS = [
-    "*",
+    "localhost",
+    "127.0.0.1",
+    ".averett.cloud",
 ]
 
 # Application definition
@@ -53,7 +61,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'debug_toolbar',
-    'api',
+    'core',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -68,6 +77,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'project.urls'
+# APPEND_SLASH=False
 
 TEMPLATES = [
     {
@@ -94,6 +104,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ),
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
 
 # Database
@@ -135,20 +146,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = 'static/'
+STATIC_ROOT = '/var/www/static/' 
+
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
