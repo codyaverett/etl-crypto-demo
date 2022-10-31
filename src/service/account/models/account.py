@@ -22,4 +22,4 @@ class Account(models.Model):
         unique_together = ('address', 'network')
     
     def __str__(self):
-        return f'{self.address}: {self.balance}'
+        return f'{self.address}'

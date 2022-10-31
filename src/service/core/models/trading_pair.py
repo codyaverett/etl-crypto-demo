@@ -13,5 +13,9 @@ class TradingPair(models.Model):
                     on_delete=models.CASCADE, 
                     null=False)
     
+        
+    class Meta:
+        db_table = 'asset_tradingpair'
+    
     def __str__(self):
         return f'{self.numerator}/{self.denominator}'

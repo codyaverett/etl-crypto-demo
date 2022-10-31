@@ -12,5 +12,8 @@ class Asset(models.Model):
     networks = models.ManyToManyField(Network,
                     verbose_name='supported networks')
     
+    class Meta:
+        db_table = 'asset'
+    
     def __str__(self):
         return f'{self.name}: {self.symbol}'

@@ -11,5 +11,9 @@ class Price(TimescaleModel):
     time = TimescaleDateTimeField(interval="1 minute")
     price = models.DecimalField(max_digits=50, decimal_places=20)
 
+    
+    class Meta:
+        db_table = 'asset_price'
+
     def __str__(self):
         return f'{self.pair}: {self.price}'

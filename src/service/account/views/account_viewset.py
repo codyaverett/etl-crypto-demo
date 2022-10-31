@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from account.models.account import Account
-from account.serializers.accountSerializer import AccountSerializer
+from account.serializers.account_serializer import AccountSerializer
 
 class AccountViewSet(viewsets.ModelViewSet):
     """
