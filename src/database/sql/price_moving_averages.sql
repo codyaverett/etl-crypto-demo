@@ -13,6 +13,6 @@ SELECT time
 	, AVG(price) OVER(ORDER BY time
       	ROWS BETWEEN 49 PRECEDING AND CURRENT ROW)
     	AS moving_average_50
-  FROM public.core_price
+  FROM public.asset_price
   WHERE pair_id = 1 and time > NOW() - INTERVAL '1 day'
   ORDER BY time DESC;
