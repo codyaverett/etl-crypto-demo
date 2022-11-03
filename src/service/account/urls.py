@@ -5,8 +5,8 @@ from account.views.account_balance_viewset import AccountBalanceViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r"account", AccountViewSet)
-router.register(r"balance", AccountBalanceViewSet)
+router.register(r"accounts", AccountViewSet)
+router.register(r"balances", AccountBalanceViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

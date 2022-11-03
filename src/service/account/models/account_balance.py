@@ -14,6 +14,7 @@ class AccountBalance(TimescaleModel):
     
     class Meta:
         db_table = 'account_balance'
+        order_with_respect_to = 'account'
     
     def __str__(self):
         return f'{self.account}: {self.amount}'
