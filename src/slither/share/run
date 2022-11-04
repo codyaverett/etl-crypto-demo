@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Get current working directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+#Load .env file
+if [ -f "$DIR/.env" ]; then
+    export $(cat $DIR/.env | sed 's/#.*//g' | xargs)
+fi
+
+#Get current filename minus extension
+export CURRENT_RUN_NAME=$1
+export OUTPUT_DIR=$DIR/out/$CURRENT_RUN_NAME
+unset EXIT_NOW
+
+#Create output directory if it doesn't exist
+mkdir -p $OUTPUT_DIR
+
+# Get the command
+command=$1
+# Get the command script
+command_script=$DIR/commands/$command.sh
+
+# Function that runs the command script
+run_command() {
+    pushd $OUTPUT_DIR
+    # Run the command script and pass the rest of the arguments
+    bash $command_script ${@:2}
+    popd
+}
+
+# Check if the command script exists
+if [ -f "$command_script" ]; then
+
+    # make sure script is runable (chmod +x)
+    chmod +x $command_script
+
+    # Iterate over each line from the list.txt file
+    while read line; do
+        
+        echo
+        echo
+        echo start: $line
+        echo "----------------------------------------"
+
+        export CURRENT_RUN_LINE=$line
+
+        # run the command with extra arguments
+        # All commands get the line as the first argument
+        # then they get the rest of the arguments
+        run_command $1 $line ${@:2}
+
+        echo "----------------------------------------"
+        echo end: $line
+        echo
+        echo
+        
+    done < "$DIR/list.txt"
+else
+    # Print error message
+    echo "Command '$command' not found"
+    echo "Available commands:"
+    ls $DIR/commands 
+fi

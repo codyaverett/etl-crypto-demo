@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo $CURRENT_RUN_NAME
+echo $CURRENT_RUN_LINE
+echo $OUTPUT_DIR
+
+echo "$OUTPUT_DIR/$CURRENT_RUN_LINE.json"
