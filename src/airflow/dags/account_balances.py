@@ -21,7 +21,7 @@ serviceAPI = Variable.get("SERVICE_API")
 )
 def account_balances_dag():
     """
-    This DAG simply retrieves and stores the current account balances for a list of accounts.
+    This DAG retrieves and stores the current account balances for a list of accounts.
     """
     
     @task()

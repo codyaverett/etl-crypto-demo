@@ -20,7 +20,7 @@ serviceAPI = Variable.get("SERVICE_API")
     tags=['price'])
 def eth_prices_dag():
     """
-    This DAG simply retrieves and stores the current ETH price in USD and BTC.
+    This DAG retrieves and stores the current ETH price in USD and BTC.
     """
     
     @task()
