@@ -4,8 +4,8 @@ from etherscan import Etherscan
 from datetime import datetime, timedelta
 import requests
 
-eth = Etherscan(Variable.get("ETHERSCAN_KEY2", "")) # key in quotation marks
-serviceAPI = Variable.get("SERVICE_API", "") # key in quotation marks
+eth = Etherscan(Variable.get("ETHERSCAN_KEY")) # key in quotation marks
+serviceAPI = Variable.get("SERVICE_API") # key in quotation marks
 
 
 @dag(
@@ -29,14 +29,13 @@ def eth_prices_dag():
     
     @task()
     def log_eth_prices(prices):
-        print(prices)
-        r1 = requests.post(serviceAPI + "price/", 
+        r1 = requests.post(serviceAPI + "prices/", 
             json={"pair": 1, 
                   "price": float(prices["ethusd"]),
                   "time": datetime
                     .utcfromtimestamp(int(prices["ethusd_timestamp"]))
                     .strftime('%Y-%m-%dT%H:%M:%S')})
-        r2 = requests.post(serviceAPI + "price/", 
+        r2 = requests.post(serviceAPI + "prices/", 
             json={"pair": 2, 
                   "price": float(prices["ethbtc"]),
                   "time": datetime

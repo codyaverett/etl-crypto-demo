@@ -23,11 +23,9 @@ from rest_framework.documentation import include_docs_urls
 
 from project.patches import routers
 from core.urls import router as core_router
-from account.urls import router as account_router
 
 router = routers.DefaultRouter()
 router.extend(core_router)
-router.extend(account_router)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
