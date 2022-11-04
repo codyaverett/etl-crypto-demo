@@ -17,6 +17,8 @@ coreapi = "*"
 gunicorn = "*"
 etherscan-python = "*"
 requests = "*"
+slither = "*"
+pydotplus = "*"
 
 [dev-packages]
 apache-airflow = "==2.4.1"
