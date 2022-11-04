@@ -6,6 +6,7 @@
     - [x] Networks
     - [x] Trading Pairs
     - [x] Account watch list
+        - [x] contracts (offline)
         - [ ] assets/tokens
         - [ ] account balance
         - [ ] internal_txns
@@ -13,6 +14,10 @@
         - [ ] account transactions  
 - [x] Dataware house solution (postgres/TimescaleDB)
 - [ ] Charts and Dashboards (apache superset)
+    - [x] Account Table (boring)
+    - [ ] price over time
+    - [ ] account value over time
+    
 
 ## Project
 - [x] setup development infrastructure
@@ -28,12 +33,13 @@
 - [x] Django ORM to manage table creation and table relations
 - [x] REST Api for querying and managing database
 - [ ] Apache Airflow Operator for interacting with API/DB
+        Some type of abstration is needed to simplify these interactions
 - [x] SQL scripts to inject inital datasets 
 - [ ] DB backups for disaster recovery
 
 ## Nice to haves
 - [x] Design an incremental data load which can be started/stopped anytime and rerun on demand 
 - [ ] Incorporate data pipeline monitoring from start to end with alerting 
-- [ ] Describe the necessary steps to maintain and evolve your data pipeline
+- [x] Describe the necessary steps to maintain and evolve your data pipeline
 - [ ] Implement quality checks 
 - [ ] Build prediction models for the key metrics mentioned in the requirements and visualize the outcome
