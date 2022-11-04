@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from etherscan import Etherscan
 import requests
 
-eth = Etherscan(Variable.get("ETHERSCAN_KEY")) # key in quotation marks
-serviceAPI = Variable.get("SERVICE_API") # key in quotation marks
+eth = Etherscan(Variable.get("ETHERSCAN_KEY"))
+serviceAPI = Variable.get("SERVICE_API")
 
 
 @dag(
