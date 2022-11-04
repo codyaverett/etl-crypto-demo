@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from etherscan import Etherscan
 import requests
 
-eth = Etherscan(Variable.get("ETHERSCAN_KEY"))
+eth = Etherscan(Variable.get("ETHERSCAN_SECRET_KEY"))
 serviceAPI = Variable.get("SERVICE_API")
 
 
