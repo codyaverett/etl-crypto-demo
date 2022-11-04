@@ -28,25 +28,22 @@ def eth_prices_dag():
         return eth.get_eth_last_price()
     
     @task()
-    def log_eth_prices(prices):
-        r1 = requests.post(serviceAPI + "prices/", 
+    def log_eth_prices(prices, pair):
+        response = requests.post(serviceAPI + "prices/", 
             json={"pair": 1, 
-                  "price": float(prices["ethusd"]),
+                  "price": float(prices[pair]),
                   "time": datetime
-                    .utcfromtimestamp(int(prices["ethusd_timestamp"]))
+                    .utcfromtimestamp(int(prices[f"{pair}_timestamp"]))
                     .strftime('%Y-%m-%dT%H:%M:%S')})
-        r2 = requests.post(serviceAPI + "prices/", 
-            json={"pair": 2, 
-                  "price": float(prices["ethbtc"]),
-                  "time": datetime
-                    .utcfromtimestamp(int(prices["ethbtc_timestamp"]))
-                    .strftime('%Y-%m-%dT%H:%M:%S')})
-        print(r1.text)
-        print(r2.text)
         
+        if(response.status_code != 201):
+            raise Exception(response.text)
+        
+        return response.text
+    
     # Call the task functions to infer dependencies
     prices = get_latest_eth_prices()
-    log_eth_prices(prices)
+    log_eth_prices.partial(prices = prices).expand(pair = ["ethusd", "ethbtc"])
 
 # Call the dag function to register the DAG
 eth_prices_dag = eth_prices_dag()

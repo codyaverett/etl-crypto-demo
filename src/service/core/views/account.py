@@ -9,8 +9,8 @@ class AccountViewSet(viewsets.ModelViewSet):
     """
     queryset = Account.objects.all().order_by("address")
     serializer_class = AccountSerializer
-    # permission_classes = [permissions.IsAuthenticated]
     lookup_field = "pk"
+    filterset_fields = ["address", "watch"]
     
 
 class AccountBalanceViewSet(viewsets.ModelViewSet):
@@ -19,5 +19,5 @@ class AccountBalanceViewSet(viewsets.ModelViewSet):
     """
     queryset = AccountBalance.objects.all().order_by("account")
     serializer_class = AccountBalanceSerializer
-    # permission_classes = [permissions.IsAuthenticated]
     lookup_field = "pk"
+    filterset_fields = ["account"]

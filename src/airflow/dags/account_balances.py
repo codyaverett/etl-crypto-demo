@@ -10,7 +10,7 @@ serviceAPI = Variable.get("SERVICE_API")
 
 
 @dag(
-    schedule="5 * * * *",
+    schedule="*/10 * * * *",
     start_date=datetime(2022, 10, 29),
     catchup=False,
     default_args={
@@ -18,7 +18,7 @@ serviceAPI = Variable.get("SERVICE_API")
     },
     max_active_runs=1,
     max_active_tasks=5,
-    tags=['price'])
+)
 def account_balances_dag():
     """
     This DAG simply retrieves and stores the current account balances for a list of accounts.
@@ -33,17 +33,15 @@ def account_balances_dag():
         """
         ti = kwargs['ti']
         
-        # TODO: Add filter in api to only return watched accounts
-        response = requests.get(serviceAPI + "accounts").json()
+        response = requests.get(serviceAPI + "accounts/?address=&watch=true").json()
         
-        watchedAccounts = list(filter(lambda x: x["watch"], response))
-        
-        for item in watchedAccounts:
+        for item in response:
             address = item["address"]
             id = item["id"]
             ti.xcom_push(key=address, value=id)
   
-        accounts = list(map(lambda x: x["address"], watchedAccounts))
+        # Return the list of addresses
+        accounts = list(map(lambda x: x["address"], response))
         return accounts
     
     
@@ -75,6 +73,9 @@ def account_balances_dag():
     def store_account_balances(**kwargs):
         """
         _summary_: Store the balances in the database via the service API
+        TODO: This makes many requests to the service API. This should be 
+                optimized for failure cases, we don't want to have to send 
+                so many individual requests to the api.
         """
         ti = kwargs["ti"]
         
@@ -82,19 +83,20 @@ def account_balances_dag():
         for items in ti.xcom_pull(key="return_value", task_ids="fetch_account_balances"):
             for item in items:
                 accounts.append(item)
-        
-        print(accounts)
-        
+                
         for item in accounts:
             account = item["account"]
             balance = item["balance"]
             
             accountId = ti.xcom_pull(key=account, task_ids="get_list_of_accounts")
-            r = requests.post(serviceAPI + "balances/", 
+            response = requests.post(serviceAPI + "balances/", 
                 json={"account": accountId, 
                     "amount": balance,
                     "time": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')})
-            print(r.text)
+            
+            if(response.status_code != 201):
+                raise Exception(response.text)
+            
 
     # Call the task functions to infer dependencies
     accounts = get_list_of_accounts()
