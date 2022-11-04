@@ -1,0 +1,9 @@
+FROM nginx
+
+RUN rm /etc/nginx/nginx.conf
+RUN apt-get update && \
+    apt-get install -y certbot python3-certbot-nginx
+# libnginx-mod-stream
+
+COPY content /usr/share/nginx/html
+COPY config /etc/nginx
