@@ -135,3 +135,6 @@ db.sqlite3
 # other
 logs/
 tmp/
+out/
+crytic-export/
+node_modules/
