@@ -88,9 +88,9 @@ def account_balances_dag():
             account = item["account"]
             balance = item["balance"]
             
-            accountId = ti.xcom_pull(key=account, task_ids="get_list_of_accounts")
+            account_id = ti.xcom_pull(key=account, task_ids="get_list_of_accounts")
             response = requests.post(serviceAPI + "balances/", 
-                json={"account": accountId, 
+                json={"account": account_id, 
                     "amount": balance,
                     "time": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')})
             
