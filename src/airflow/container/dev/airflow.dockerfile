@@ -26,7 +26,7 @@ RUN pip install --upgrade pip
 # install airflow
 # Todo parameterize versions
 RUN pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.4.1/constraints-3.10.txt" && \
-    pip install apache-airflow-providers-postgres etherscan-python
+    pip install apache-airflow-providers-postgres etherscan-python slither-analyzer
 
 RUN airflow db init
 COPY airflow.cfg $AIRFLOW_HOME/airflow.cfg
