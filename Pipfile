@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==4.1.2"
+markdown = "==3.4.1"
+django-filter = "==22.1"
+django-timescaledb = "==0.2.12"
+pytest-dotenv = "*"
+django-extensions = "==3.2.1"
+django-debug-toolbar = "==3.7.0"
+djangorestframework = "==3.14.0"
+psycopg2-binary = "==2.9.5"
+coreapi = "*"
+gunicorn = "*"
+etherscan-python = "*"
+requests = "*"
+slither = "*"
+pydotplus = "*"
+
+[dev-packages]
+apache-airflow = "==2.4.1"
+ipykernel = "*"
+
+[requires]
+python_version = "3.10"

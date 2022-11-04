@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  airflow:
+    build:
+      context: ./airflow/container/dev/
+      dockerfile: airflow.dockerfile
+    image: airflow
+    ports:
+      - "8080:8080"
+    environment:
+      - EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    networks:
+      - connection
+    volumes:
+      - ./airflow/dags:/usr/local/airflow/dags
+      - ./airflow/logs:/usr/local/airflow/logs
+      - ./airflow/plugins:/usr/local/airflow/plugins
+
+  database:
+    image: timescale/timescaledb-ha:pg14-latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=crypto
+    networks:
+      - connection
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_USER=admin
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DEFAULT_EMAIL=admin@local.com
+    networks:
+      - connection
+
+  superset:
+    image: apache/superset:latest
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_LOAD_EXAMPLES=False
+      - SUPERSET_CONFIG_PATH=/app/pythonpath/superset_config.py
+    networks:
+      - connection
+    volumes:
+      - ./superset:/app/pythonpath
+      - ./superset/superset_config.py:/app/pythonpath/superset_config.py
+      - ./superset/superset.db:/app/superset.db
+
+networks:
+  connection:
+    driver: bridge
